@@ -99,7 +99,7 @@ message ReplyReviewRequest {
 }
 
 message ReplyReviewReply {
-	int64 reviewID = 1;
+	int64 replyID = 1;
 }
 
 message AppealReviewRequest {

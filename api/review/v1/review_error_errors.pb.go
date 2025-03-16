@@ -48,3 +48,27 @@ func IsReviewExisted(err error) bool {
 func ErrorReviewExisted(format string, args ...interface{}) *errors.Error {
 	return errors.New(403, ErrorReason_REVIEW_EXISTED.String(), fmt.Sprintf(format, args...))
 }
+
+func IsReplyExisted(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_REPLY_EXISTED.String() && e.Code == 404
+}
+
+func ErrorReplyExisted(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, ErrorReason_REPLY_EXISTED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsStoreNotMatch(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_STORE_NOT_MATCH.String() && e.Code == 405
+}
+
+func ErrorStoreNotMatch(format string, args ...interface{}) *errors.Error {
+	return errors.New(405, ErrorReason_STORE_NOT_MATCH.String(), fmt.Sprintf(format, args...))
+}

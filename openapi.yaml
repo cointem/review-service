@@ -294,7 +294,7 @@ components:
         ReplyReviewReply:
             type: object
             properties:
-                reviewID:
+                replyID:
                     type: string
         ReplyReviewRequest:
             type: object

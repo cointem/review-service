@@ -705,7 +705,7 @@ func (m *ReplyReviewReply) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ReviewID
+	// no validation rules for ReplyID
 
 	if len(errors) > 0 {
 		return ReplyReviewReplyMultiError(errors)

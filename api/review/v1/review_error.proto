@@ -18,4 +18,6 @@ enum ErrorReason {
   
     DB_FAILED = 1 [(errors.code) = 402];
     REVIEW_EXISTED = 2 [(errors.code) = 403];
+    REPLY_EXISTED = 3 [(errors.code) = 404];
+    STORE_NOT_MATCH=4 [(errors.code) = 405];
   }

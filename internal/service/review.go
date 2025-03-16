@@ -43,11 +43,40 @@ func (s *ReviewService) CreateReview(ctx context.Context, req *pb.CreateReviewRe
 }
 
 func (s *ReviewService) GetReview(ctx context.Context, req *pb.GetReviewRequest) (*pb.GetReviewReply, error) {
-	return &pb.GetReviewReply{}, nil
+	fmt.Printf("[service] GetReview: %v\n", req)
+	review, err := s.uc.GetReview(ctx, req.ReviewID)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.GetReviewReply{
+		Review: &pb.ReviewInfo{
+			ReviewID:     review.ReviewID,
+			UserID:       review.UserID,
+			OrderID:      review.OrderID,
+			Content:      review.Content,
+			Score:        review.Score,
+			ServiceScore: review.ServiceScore,
+			ExpressScore: review.ExpressScore,
+			PicInfo:      review.PicInfo,
+			VideoInfo:    review.VideoInfo,
+			Status:       review.Status,
+		},
+	}, nil
 }
 
 func (s *ReviewService) ReplyReview(ctx context.Context, req *pb.ReplyReviewRequest) (*pb.ReplyReviewReply, error) {
-	return &pb.ReplyReviewReply{}, nil
+	fmt.Printf("[service] ReplyReview: %v\n", req)
+	reply, err := s.uc.CreateReply(ctx, &biz.ReplyParam{
+		ReviewID:  req.ReviewID,
+		Content:   req.Content,
+		StoreID:   req.StoreID,
+		PicInfo:   req.PicInfo,
+		VideoInfo: req.VideoInfo,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &pb.ReplyReviewReply{ReplyID: reply.ReplyID}, nil
 }
 
 func (s *ReviewService) AppealReview(ctx context.Context, req *pb.AppealReviewRequest) (*pb.AppealReviewReply, error) {
